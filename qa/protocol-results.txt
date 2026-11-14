@@ -1,0 +1,4 @@
+PASS seeded CRC fixtures independently computed with Python zlib + captured feed + chunk boundaries
+PASS 52 captured 07 split cases + mixed 02/07 streams + noise + cover/paper states
+PASS 72 differential packet cases + seeded CRC + feed + chunk boundaries
+Feed frame 02 1A 00 02 00 BE 00 97 D6 65 37 03

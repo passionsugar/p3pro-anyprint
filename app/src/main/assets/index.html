@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>随心打印</title><link rel="stylesheet" href="vendor/quill.css"><link rel="stylesheet" href="vendor/katex.css"><link rel="stylesheet" href="print.css"><link rel="stylesheet" href="app.css"><link rel="stylesheet" href="compat.css"></head>
+<body>
+<header><button id="homeButton" class="brand" aria-label="返回首页"><span class="brand-mark">印</span><span>随心打印<small>P3 PRO</small></span></button><span id="screenTitle">选择打印内容</span><button id="deviceButton" class="device"><i id="deviceDot"></i><span id="deviceStatus">正在检测打印接口</span></button></header>
+<main>
+  <section id="home" class="screen active">
+    <div class="home-intro"><h1>把想法留在纸上</h1><span>图片、文档与公式，离线排版打印。</span></div>
+    <div class="home-grid">
+      <button class="entry" data-screen="images"><span class="entry-symbol image-symbol">▧</span><strong>图片打印</strong><small>多图选择 · 适应纸宽</small><span class="entry-go">选择图片 <b>›</b></span></button>
+      <button class="entry" data-screen="documents"><span class="entry-symbol document-symbol">¶</span><strong>文档打印</strong><small>PDF · Markdown · TXT</small><span class="entry-go">导入文档 <b>›</b></span></button>
+      <button class="entry" data-screen="text"><span class="entry-symbol text-symbol">Aa</span><strong>文本打印</strong><small>富文本编辑 · LaTeX 公式</small><span class="entry-go">开始编辑 <b>›</b></span></button>
+    </div>
+    <div class="home-bottom"><span>864 点打印宽度</span><span>内容保存在本机</span></div>
+  </section>
+  <section id="images" class="screen">
+    <div class="section-bar"><button id="pickImages" class="primary">＋ 选择图片</button><span id="imageCount">尚未选择图片</span><span class="spacer"></span><span class="quiet">等比例适应宽度</span></div>
+    <div class="image-workspace"><div id="imageList" class="file-list"><div class="empty small">支持多张图片<br>按列表顺序打印</div></div><div class="image-preview" id="imagePreview"><div class="empty">选择图片后在此预览<br><small>透明背景会转换为白色</small></div></div></div>
+    <div class="action-bar"><span id="imageHint" class="quiet">JPEG / PNG / WebP / BMP / GIF / TIFF / SVG</span><span class="spacer"></span><label>份数 <input class="copies" type="number" min="1" max="20" value="1" aria-label="图片打印份数"></label><button id="printImages" class="primary" disabled>打印所选图片</button></div>
+  </section>
+  <section id="documents" class="screen">
+    <div class="section-bar"><button id="pickDocument" class="primary">＋ 导入文档</button><span id="documentName">PDF、Markdown 或 TXT</span><span class="spacer"></span><button id="documentEdit" class="secondary hidden">编辑内容</button></div>
+    <div id="documentEmpty" class="empty fill"><span class="empty-icon">¶</span>选择本机文档<small>PDF 逐页转成图片，Markdown 支持数学公式</small></div>
+    <div id="pdfControls" class="pdf-controls hidden"><button id="pdfPrevious" aria-label="上一页">‹</button><span id="pdfPageLabel">1 / 1</span><button id="pdfNext" aria-label="下一页">›</button><label>打印页码 <input id="pdfRange" placeholder="全部，如 1-3,5" aria-label="PDF 打印页码"></label></div>
+    <div id="documentPreview" class="document-preview hidden"></div>
+    <div class="action-bar"><span id="documentHint" class="quiet">公式和字体随应用离线提供</span><span class="spacer"></span><label>份数 <input class="copies" type="number" min="1" max="20" value="1" aria-label="文档打印份数"></label><button id="printDocument" class="primary" disabled>打印文档</button></div>
+  </section>
+  <section id="text" class="screen">
+    <div class="section-bar compact"><div class="segmented"><button id="richTab" class="selected">富文本</button><button id="markdownTab">Markdown</button><button id="textPreviewTab">预览</button></div><span class="spacer"></span><button id="importText" class="secondary">导入 TXT / MD</button><button id="sampleText" class="secondary">公式示例</button></div>
+    <div id="richArea" class="editor-area">
+      <div id="toolbar">
+        <span class="ql-formats"><select class="ql-header" aria-label="段落标题"><option selected>正文</option><option value="1">标题 1</option><option value="2">标题 2</option><option value="3">标题 3</option></select><select class="ql-size" aria-label="字号"><option value="small">小</option><option selected>中</option><option value="large">大</option><option value="huge">特大</option></select></span>
+        <span class="ql-formats"><button class="ql-bold" aria-label="加粗"></button><button class="ql-italic" aria-label="斜体"></button><button class="ql-underline" aria-label="下划线"></button><button class="ql-strike" aria-label="删除线"></button></span>
+        <span class="ql-formats"><button class="ql-align" value="" aria-label="左对齐"></button><button class="ql-align" value="center" aria-label="居中对齐"></button><button class="ql-align" value="right" aria-label="右对齐"></button></span>
+        <span class="ql-formats"><button class="ql-list" value="ordered" aria-label="有序列表"></button><button class="ql-list" value="bullet" aria-label="无序列表"></button></span>
+        <span class="ql-formats"><button class="ql-insertmath" aria-label="插入公式">fx</button><button class="ql-undo" aria-label="撤销">↶</button><button class="ql-redo" aria-label="重做">↷</button><button class="ql-clean" aria-label="清除格式"></button></span>
+      </div>
+      <div id="editor"></div>
+    </div>
+    <textarea id="markdownSource" class="source hidden" spellcheck="false" aria-label="Markdown 编辑器" placeholder="输入 Markdown，可直接使用 $...$、$$...$$、\(...\)、\[...\] 公式"></textarea>
+    <div id="textPreview" class="document-preview hidden"></div>
+    <div class="action-bar"><span id="draftStatus" class="quiet">草稿自动保存</span><span class="spacer"></span><label>打印字号 <select id="printFont"><option value="16">小</option><option value="18" selected>中</option><option value="22">大</option><option value="26">特大</option></select></label><label>份数 <input class="copies" type="number" min="1" max="20" value="1" aria-label="文本打印份数"></label><button id="printText" class="primary">预览并打印</button></div>
+  </section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="deviceDialog"><form method="dialog"><h2>打印机设置</h2><label class="field">打印接口<select id="backendMode"><option value="auto">自动 · 优先系统 mbprint 服务</option><option value="service">系统 mbprint 服务</option><option value="serialwifi">原生串口 · Wi-Fi 版</option><option value="serial4g">原生串口 · 4G 版</option></select></label><pre id="diagnostics">正在检测</pre><p class="note">自动模式在系统服务连接失败时尝试串口。提交后的任务由当前接口继续处理。</p><div class="dialog-actions"><button type="button" id="refreshDevice">重新检测</button><button type="button" id="exportLog">导出诊断</button><button type="button" id="copyLog">复制诊断</button><span class="spacer"></span><button class="primary">完成</button></div></form></dialog>
+<dialog id="formulaDialog"><h2>插入 LaTeX 公式</h2><textarea id="formulaSource" spellcheck="false" aria-label="LaTeX 公式" placeholder="例如 \frac{-b\pm\sqrt{b^2-4ac}}{2a}"></textarea><div id="formulaPreview"></div><div class="dialog-actions"><label><input id="displayFormula" type="checkbox"> 独立公式行</label><span class="spacer"></span><button id="cancelFormula">取消</button><button id="insertFormula" class="primary">插入</button></div></dialog>
+<dialog id="confirmDialog"><h2>确认打印</h2><div id="confirmation"></div><p class="note">请确认已装纸并合上纸盖。</p><div class="dialog-actions"><button id="cancelConfirm">返回检查</button><span class="spacer"></span><button id="startPrint" class="primary">开始打印</button></div></dialog>
+<dialog id="progressDialog"><h2 id="progressTitle">准备打印</h2><progress id="progress" max="100" value="0"></progress><p id="progressMessage">正在准备内容</p><div class="dialog-actions"><button id="stopPrint">停止后续打印</button><button id="copyPrintLog">复制诊断</button><span class="spacer"></span><button id="closeProgress" class="primary hidden">完成</button></div></dialog>
+<script src="vendor/katex.js"></script><script src="vendor/quill.js"></script><script src="vendor/markdown-it.js"></script><script src="vendor/purify.js"></script><script src="vendor/pako.js"></script><script src="vendor/utif.js"></script><script src="content.js"></script><script src="app.js"></script>
+</body></html>

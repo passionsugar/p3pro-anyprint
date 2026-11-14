@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=432,initial-scale=1"><link rel="stylesheet" href="vendor/katex.css"><link rel="stylesheet" href="print.css"></head><body><article id="paper" class="paper"></article><script src="vendor/katex.js"></script><script src="vendor/markdown-it.js"></script><script src="vendor/purify.js"></script><script src="content.js"></script><script>
+window.loadPrintDocument=function(html,fontSize){
+  var paper=document.getElementById('paper');paper.style.fontSize=fontSize+'px';paper.innerHTML=PrintContent.prepare('rich',html);
+  // Source is already rendered. The second rich pass only handles any remaining raw delimiters.
+  var images=Array.prototype.map.call(paper.querySelectorAll('img'),function(img){return new Promise(function(resolve){if(img.complete)resolve();else{img.onload=resolve;img.onerror=resolve;}});});
+  images.push(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve());
+  window.printReady=false;window.printFailure='';
+  Promise.all(images).then(function(){setTimeout(function(){
+    paper.querySelectorAll('.katex-display,.ql-formula').forEach(function(math){var width=math.scrollWidth;if(width>paper.clientWidth-24){math.style.fontSize=((paper.clientWidth-24)/width*100)+'%';}});
+    try{window.printBreaks=PrintContent.pageBreaks(paper,1400);window.printReady=true;}catch(error){window.printFailure=error.message;}
+  },150);});
+};
+</script></body></html>

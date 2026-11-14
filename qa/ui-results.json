@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "viewport": "534×320",
+  "mathDelimiters": 5,
+  "richAlignment": "single and multiple paragraphs",
+  "tested": [
+    "home",
+    "rich text",
+    "Markdown math",
+    "multiline math",
+    "formula insert",
+    "settings",
+    "copy diagnostics from settings and a failed print",
+    "compact layout",
+    "image order and native bridge payload",
+    "SVG rasterization",
+    "TIFF decoding",
+    "document pagination"
+  ],
+  "pagination": {
+    "breaks": [
+      0,
+      1374,
+      2773,
+      4173,
+      4405
+    ],
+    "errors": 0,
+    "formulas": 120,
+    "width": 432
+  }
+}

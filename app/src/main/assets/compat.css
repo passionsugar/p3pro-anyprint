@@ -1,0 +1,19 @@
+/* P3-era WebViews support grid gaps but need margins for flex spacing. */
+.no-flex-gap .brand-mark { margin-right: 7px; }
+.no-flex-gap .brand + #screenTitle { margin-left: 14px; }
+.no-flex-gap .device i { margin-right: 6px; }
+.no-flex-gap .home-intro > span { margin-left: 14px; }
+.no-flex-gap .section-bar > * + *,
+.no-flex-gap .action-bar > * + *,
+.no-flex-gap .pdf-controls > * + *,
+.no-flex-gap .dialog-actions > * + * { margin-left: 8px; }
+.no-flex-gap .action-bar label > * + * { margin-left: 5px; }
+.no-flex-gap .file-row > * + * { margin-left: 6px; }
+.no-flex-gap .file-row > .order { margin-left: auto; }
+.no-flex-gap .pdf-controls label > * + * { margin-left: 7px; }
+.no-flex-gap dialog .field select { margin-left: 10px; }
+.no-flex-gap .empty > * + * { margin-top: 8px; }
+@media (max-width: 500px) {
+  .no-flex-gap .compact > * + *,
+  .no-flex-gap .action-bar > * + * { margin-left: 5px; }
+}

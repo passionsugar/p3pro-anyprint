@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cn.paperstudio.p3print.test">
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
+  <application android:label="P3Print QA" />
+  <instrumentation android:name="cn.paperstudio.p3print.SmokeInstrumentation" android:targetPackage="cn.paperstudio.p3print" />
+</manifest>
